@@ -40,7 +40,7 @@ export default function CourseDescription() {
             </tr>
             <tr>
               <td className='text-lg font-semibold'>Czas trwania:</td>
-              <td>nie podano</td>
+              <td>Nie podano</td>
             </tr>
             <tr>
               <td className='text-lg font-semibold'>Cena:</td>
@@ -48,7 +48,7 @@ export default function CourseDescription() {
             </tr>
             <tr>
               <td className='text-lg font-semibold'>Język kursu:</td>
-              <td>angielski</td>
+              <td>Angielski</td>
             </tr>
             <tr>
               <td className='text-lg font-semibold'>Średnia ocen:</td>
@@ -57,7 +57,7 @@ export default function CourseDescription() {
           </tbody>
         </table>
       </div>
-      <div className='flex flex-auto mx-5 gap-4 items-start'>
+      <div className='flex flex-auto mx-5 gap-4 items-center'>
         <p>Tagi:</p>
         <Chip
           className='mb-0'

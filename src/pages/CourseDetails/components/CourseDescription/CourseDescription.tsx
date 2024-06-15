@@ -1,3 +1,5 @@
+import { Chip } from '@mui/material';
+
 export default function CourseDescription() {
   return (
     <div className='mb-8'>
@@ -20,29 +22,38 @@ export default function CourseDescription() {
           szczególnie w dłuższych tekstach.
         </p>
       </div>
-      <table className='mb-4 table-auto w-full me-32'>
-        <tbody>
-          <tr>
-            <td className='text-lg font-semibold'>Strona kursu:</td>
-            <td>
-              <a
-                className='underline text-blue-600 visited:text-purple-600'
-                href='https://www.w3schools.com'
-              >
-                https://www.w3schools.com
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <td className='text-lg font-semibold'>Czas trwania:</td>
-            <td>nie podano</td>
-          </tr>
-          <tr>
-            <td className='text-lg font-semibold'>Cena:</td>
-            <td>darmowy</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className='mb-4 overflow-clip rounded-3xl bg-zinc-800'>
+        <table className='table-fixed rounded-3xl bg-zinc-800 w-full'>
+          <tbody className='rounded-3xl bg-zinc-800'>
+            <tr>
+              <td className='text-lg font-semibold'>Strona kursu:</td>
+              <td className=''>
+                <a
+                  className='underline text-sky-400 visited:text-violet-400'
+                  href='https://www.w3schools.com'
+                >
+                  https://www.w3schools.com
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td className='text-lg font-semibold'>Czas trwania:</td>
+              <td>nie podano</td>
+            </tr>
+            <tr>
+              <td className='text-lg font-semibold'>Cena:</td>
+              <td>darmowy</td>
+            </tr>
+            <tr>
+              <td className='text-lg font-semibold'>Średnia ocen:</td>
+              <td>4,8</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className='flex flex-auto gap-16 items-start'>
+        <Chip className='mb-0' variant='outlined' label='kategoria' />
+      </div>
     </div>
   );
 }

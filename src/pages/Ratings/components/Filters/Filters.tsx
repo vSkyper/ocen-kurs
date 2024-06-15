@@ -9,15 +9,8 @@ export default function Filters(props: FiltersProps) {
   const [activeCategoriesFilter, setActiveCategoriesFilter] = useState<
     string[]
   >([]);
+  const [activeLevelFilter, setActiveLevelFilter] = useState<number[]>([]);
   const [priceFilter, setPriceFilter] = useState<number[]>([0, 1000]);
-
-  UseFilterCourses({
-    courses,
-    searchQuery,
-    setFilteredCourses,
-    activeCategoriesFilter,
-    priceFilter,
-  });
 
   const handleCategoryFilterChange = useCallback(
     (category: string) => {
@@ -32,11 +25,24 @@ export default function Filters(props: FiltersProps) {
     [activeCategoriesFilter],
   );
 
-  const handleClearFilters = useCallback(() => {
+  const handleLevelFilterChange = useCallback(
+    (level: number) => {
+      if (activeLevelFilter.includes(level)) {
+        setActiveLevelFilter(
+          activeLevelFilter.filter((item: number) => item !== level),
+        );
+        return;
+      }
+      setActiveLevelFilter([...activeLevelFilter, level]);
+    },
+    [activeLevelFilter],
+  );
+
+  const handleClearCategoriesFilters = useCallback(() => {
     setActiveCategoriesFilter([]);
   }, []);
 
-  const handleSelectAllFilters = useCallback(() => {
+  const handleSelectAllCategoriesFilters = useCallback(() => {
     setActiveCategoriesFilter(categories);
   }, [categories]);
 
@@ -47,14 +53,23 @@ export default function Filters(props: FiltersProps) {
     [setPriceFilter],
   );
 
+  UseFilterCourses({
+    courses,
+    searchQuery,
+    setFilteredCourses,
+    activeCategoriesFilter,
+    activeLevelFilter,
+    priceFilter,
+  });
+
   return (
-    <div className='grow-0 p-5'>
+    <div className='grow-0 p-8'>
       <div className='text-3xl font-bold'>Filtry</div>
       <div className='mt-2 text-lg font-bold'>Kategoria</div>
       {activeCategoriesFilter.length > 0 && (
         <div
           className='mt-1 text-sm text-zinc-300 cursor-pointer'
-          onClick={handleClearFilters}
+          onClick={handleClearCategoriesFilters}
         >
           Wyczyść ({activeCategoriesFilter.length})
         </div>
@@ -62,7 +77,7 @@ export default function Filters(props: FiltersProps) {
       {activeCategoriesFilter.length === 0 && (
         <div
           className='mt-1 text-sm text-zinc-300 cursor-pointer'
-          onClick={handleSelectAllFilters}
+          onClick={handleSelectAllCategoriesFilters}
         >
           Zaznacz wszystkie
         </div>
@@ -78,6 +93,28 @@ export default function Filters(props: FiltersProps) {
           </div>
         </div>
       ))}
+      <div className='mt-4 text-lg font-bold'>Poziom</div>
+      <div className='flex items-center gap-1'>
+        <Checkbox
+          onChange={() => handleLevelFilterChange(0)}
+          checked={activeLevelFilter.includes(0)}
+        />
+        <span>Początkujący</span>
+      </div>
+      <div className='flex items-center gap-1'>
+        <Checkbox
+          onChange={() => handleLevelFilterChange(1)}
+          checked={activeLevelFilter.includes(1)}
+        />
+        <span>Średniozaawansowany</span>
+      </div>
+      <div className='flex items-center gap-1'>
+        <Checkbox
+          onChange={() => handleLevelFilterChange(2)}
+          checked={activeLevelFilter.includes(2)}
+        />
+        <span>Zaawansowany</span>
+      </div>
       <div className='mt-4 text-lg font-bold'>Cena</div>
       <Slider
         defaultValue={[0, 1000]}

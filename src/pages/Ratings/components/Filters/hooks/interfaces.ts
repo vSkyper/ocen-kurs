@@ -6,5 +6,6 @@ export interface IFilterCourses {
   searchQuery: string;
   setFilteredCourses: Dispatch<SetStateAction<CourseType[]>>;
   activeCategoriesFilter: string[];
+  activeLevelFilter: number[];
   priceFilter: number[];
 }

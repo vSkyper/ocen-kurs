@@ -7,6 +7,7 @@ const UseFilterCourses = (data: IFilterCourses) => {
     searchQuery,
     setFilteredCourses,
     activeCategoriesFilter,
+    activeLevelFilter,
     priceFilter,
   } = data;
 
@@ -26,6 +27,11 @@ const UseFilterCourses = (data: IFilterCourses) => {
             return false;
           }
         }
+        if (activeLevelFilter.length > 0) {
+          if (!activeLevelFilter.includes(course.level)) {
+            return false;
+          }
+        }
         if (priceFilter[0] > course.price || priceFilter[1] < course.price) {
           return false;
         }
@@ -34,6 +40,7 @@ const UseFilterCourses = (data: IFilterCourses) => {
     );
   }, [
     activeCategoriesFilter,
+    activeLevelFilter,
     courses,
     priceFilter,
     searchQuery,

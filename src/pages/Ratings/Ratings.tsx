@@ -38,7 +38,7 @@ export default function Ratings() {
           searchQuery={searchQuery}
           setFilteredCourses={setFilteredCourses}
         />
-        <div className='grow p-5'>
+        <div className='grow p-8'>
           <div>
             <div className='text-4xl font-bold'>Kursy</div>
             <div className='text-lg'>
@@ -48,18 +48,18 @@ export default function Ratings() {
           <div className='flex-col'>
             {filteredCourses.map((course) => (
               <Link
-                className='flex justify-between items-center p-5 my-3 rounded-3xl bg-zinc-800'
+                className='flex justify-between items-center p-5 my-4 rounded-3xl bg-zinc-800'
                 key={course.name}
                 to={`/${course.id}`}
               >
                 <div className='flex-col'>
-                  <div>
+                  <div className='text-lg'>
                     <span className='font-bold'>{course.name}</span>
                     <span className='px-2'>-</span>
                     <span>{course.organizer}</span>
                   </div>
-                  <div className='mt-1'>{course.description}</div>
-                  <div className='flex gap-1 mt-3'>
+                  <div className='mt-2'>{course.description}</div>
+                  <div className='flex gap-1 mt-4'>
                     <Chip variant='outlined' label={course.category} />
                     <Chip variant='outlined' label={Level[course.level]} />
                     {course.price === 0 && (

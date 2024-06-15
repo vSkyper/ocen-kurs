@@ -1,150 +1,81 @@
 import StarIcon from '@mui/icons-material/Star';
 import { Checkbox, Chip } from '@mui/material';
-
-interface Course {
-  name: string;
-  organizer: string;
-  description: string;
-  rating: string;
-  price: string;
-}
-
-const courses: Course[] = [
-  {
-    name: 'Kurs Programowania w Pythonie',
-    organizer: 'Szkoła Kodowania',
-    description: 'Naucz się programować w Pythonie od podstaw.',
-    rating: '4.8',
-    price: '299.99 PLN',
-  },
-  {
-    name: 'Podstawy Fotografii',
-    organizer: 'Akademia Fotografii',
-    description: 'Kurs dla początkujących fotografów.',
-    rating: '4.5',
-    price: '199.99 PLN',
-  },
-  {
-    name: 'Kurs Języka Angielskiego',
-    organizer: 'Szkoła Języków Obcych',
-    description: 'Intensywny kurs języka angielskiego.',
-    rating: '4.7',
-    price: '399.99 PLN',
-  },
-  {
-    name: 'Zaawansowane Techniki Marketingowe',
-    organizer: 'Marketing Masters',
-    description: 'Kurs dla profesjonalistów z dziedziny marketingu.',
-    rating: '4.9',
-    price: '499.99 PLN',
-  },
-  {
-    name: 'Kurs Gotowania dla Początkujących',
-    organizer: 'Kulinarna Akademia',
-    description: 'Naucz się gotować smaczne i zdrowe potrawy.',
-    rating: '4.6',
-    price: '249.99 PLN',
-  },
-  {
-    name: 'Kurs Grafiki Komputerowej',
-    organizer: 'Digital Art School',
-    description:
-      'Kurs obejmuje podstawy oraz zaawansowane techniki grafiki komputerowej.',
-    rating: '4.7',
-    price: '349.99 PLN',
-  },
-  {
-    name: 'Kurs Zarządzania Projektami',
-    organizer: 'Project Management Academy',
-    description: 'Naucz się zarządzać projektami skutecznie i efektywnie.',
-    rating: '4.8',
-    price: '449.99 PLN',
-  },
-  {
-    name: 'Kurs Rysunku i Malarstwa',
-    organizer: 'Szkoła Sztuk Pięknych',
-    description: 'Podstawy rysunku i malarstwa dla początkujących artystów.',
-    rating: '4.5',
-    price: '299.99 PLN',
-  },
-  {
-    name: 'Kurs Muzyczny: Nauka Gry na Gitarze',
-    organizer: 'Akademia Muzyczna',
-    description: 'Kurs gry na gitarze dla początkujących.',
-    rating: '4.6',
-    price: '199.99 PLN',
-  },
-  {
-    name: 'Kurs Jogi dla Początkujących',
-    organizer: 'Yoga Studio',
-    description: 'Podstawy jogi dla każdego.',
-    rating: '4.7',
-    price: '159.99 PLN',
-  },
-];
-
-interface Filter {
-  name: string;
-  checked: boolean;
-}
-
-const filters: Filter[] = [
-  {
-    name: 'Programowanie',
-    checked: false,
-  },
-  {
-    name: 'Fotografia',
-    checked: false,
-  },
-  {
-    name: 'Języki Obce',
-    checked: false,
-  },
-  {
-    name: 'Marketing',
-    checked: false,
-  },
-  {
-    name: 'Gotowanie',
-    checked: false,
-  },
-  {
-    name: 'Grafika Komputerowa',
-    checked: false,
-  },
-  {
-    name: 'Zarządzanie Projektami',
-    checked: false,
-  },
-  {
-    name: 'Rysunek i Malarstwo',
-    checked: false,
-  },
-  {
-    name: 'Muzyka',
-    checked: false,
-  },
-  {
-    name: 'Joga',
-    checked: false,
-  },
-];
+import { useCallback, useEffect, useState } from 'react';
+import { getCourses } from 'store';
+import { CourseType } from 'types/CourseType';
 
 export default function Ratings() {
+  const [courses, setCourses] = useState<CourseType[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [activeCategoriesFilter, setActiveCategoriesFilter] = useState<
+    string[]
+  >([]);
+
+  const downloadCourses = useCallback(async () => {
+    const downloadedCourses = await getCourses();
+    setCourses(downloadedCourses || []);
+  }, []);
+
+  useEffect(() => {
+    downloadCourses();
+  }, [downloadCourses]);
+
+  useEffect(() => {
+    const categoriesSet = new Set<string>();
+    courses.forEach((course) => categoriesSet.add(course.category));
+    setCategories(Array.from(categoriesSet));
+  }, [courses]);
+
+  const handleCategoryFilterChange = useCallback(
+    (category: string) => {
+      if (activeCategoriesFilter.includes(category)) {
+        setActiveCategoriesFilter(
+          activeCategoriesFilter.filter((item: string) => item !== category),
+        );
+        return;
+      }
+      setActiveCategoriesFilter([...activeCategoriesFilter, category]);
+    },
+    [activeCategoriesFilter],
+  );
+
+  const handleClearFilters = useCallback(() => {
+    setActiveCategoriesFilter([]);
+  }, []);
+
+  const handleSelectAllFilters = useCallback(() => {
+    setActiveCategoriesFilter(categories);
+  }, [categories]);
+
   return (
     <div className='flex'>
       <div className='grow-0 p-5'>
         <div className='text-3xl font-bold'>Filtry</div>
         <div className='mt-2 text-lg font-bold'>Kategoria</div>
-        <div className='mt-1 text-sm text-zinc-300 cursor-pointer'>
-          Zaznacz wszystkie
-        </div>
-        {filters.map((filter) => (
-          <div key={filter.name}>
+        {activeCategoriesFilter.length > 0 && (
+          <div
+            className='mt-1 text-sm text-zinc-300 cursor-pointer'
+            onClick={handleClearFilters}
+          >
+            Wyczyść ({activeCategoriesFilter.length})
+          </div>
+        )}
+        {activeCategoriesFilter.length === 0 && (
+          <div
+            className='mt-1 text-sm text-zinc-300 cursor-pointer'
+            onClick={handleSelectAllFilters}
+          >
+            Zaznacz wszystkie
+          </div>
+        )}
+        {categories.map((name: string) => (
+          <div key={name}>
             <div className='flex items-center gap-1'>
-              <Checkbox />
-              <span>{filter.name}</span>
+              <Checkbox
+                onChange={() => handleCategoryFilterChange(name)}
+                checked={activeCategoriesFilter.includes(name)}
+              />
+              <span>{name}</span>
             </div>
           </div>
         ))}
@@ -157,32 +88,36 @@ export default function Ratings() {
           </div>
         </div>
         <div className='flex-col'>
-          {courses.map((course) => (
-            <div
-              className='flex justify-between items-center p-5 my-3 rounded-3xl bg-zinc-800'
-              key={course.name}
-            >
-              <div className='flex-col'>
-                <div>
-                  <span className='font-bold'>{course.name}</span>
-                  <span className='px-2'>-</span>
-                  <span>{course.organizer}</span>
+          {courses.map(
+            (course) =>
+              (activeCategoriesFilter.length === 0 ||
+                activeCategoriesFilter.includes(course.category)) && (
+                <div
+                  className='flex justify-between items-center p-5 my-3 rounded-3xl bg-zinc-800'
+                  key={course.name}
+                >
+                  <div className='flex-col'>
+                    <div>
+                      <span className='font-bold'>{course.name}</span>
+                      <span className='px-2'>-</span>
+                      <span>{course.organizer}</span>
+                    </div>
+                    <div className='mt-1'>{course.description}</div>
+                    <Chip
+                      className='mt-3'
+                      variant='outlined'
+                      label={course.category}
+                    />
+                  </div>
+                  <div className='text-lg'>
+                    <div className='flex items-center gap-1'>
+                      {course.rating} <StarIcon fontSize='small' />
+                    </div>
+                    <div>{course.price}</div>
+                  </div>
                 </div>
-                <div className='mt-1'>{course.description}</div>
-                <Chip
-                  className='mt-3'
-                  variant='outlined'
-                  label='Programowanie'
-                />
-              </div>
-              <div className='text-lg'>
-                <div className='flex items-center gap-1'>
-                  {course.rating} <StarIcon fontSize='small' />
-                </div>
-                <div>{course.price}</div>
-              </div>
-            </div>
-          ))}
+              ),
+          )}
         </div>
       </div>
     </div>

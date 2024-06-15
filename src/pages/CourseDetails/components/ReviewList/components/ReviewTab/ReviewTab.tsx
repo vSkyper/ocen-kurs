@@ -15,16 +15,13 @@ export default function ReviewTab(props: ReviewTabProps) {
           <div className='mt-1'>{rev.review}</div>
         </div>
         <div className='w-3'> </div>
-        <div className='flex'>
-          <div> Rating: </div>
-          <div className='flex items-center gap-1'>
-            {Array.from({ length: rev.rating }).map(() => (
-              <StarIcon key={rev.revId} fontSize='small' />
-            ))}
-            {Array.from({ length: 5 - rev.rating }).map(() => (
-              <StarBorderIcon key={rev.revId} fontSize='small' />
-            ))}
-          </div>
+        <div className='flex items-center gap-1'>
+          {Array.from({ length: rev.rating }).map(() => (
+            <StarIcon key={rev.revId} fontSize='medium' />
+          ))}
+          {Array.from({ length: 5 - rev.rating }).map(() => (
+            <StarBorderIcon key={rev.revId} fontSize='medium' />
+          ))}
         </div>
       </div>
     </div>

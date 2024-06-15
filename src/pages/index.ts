@@ -1,3 +1,3 @@
-import Ratings from './SignUp';
+import Ratings from './Ratings';
 
 export { Ratings };

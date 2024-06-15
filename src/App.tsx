@@ -1,5 +1,6 @@
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { Ratings } from 'pages';
+import { CourseDetails, Ratings } from 'pages';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const darkTheme = createTheme({
   palette: {
@@ -8,10 +9,21 @@ const darkTheme = createTheme({
 });
 
 export default function App() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Ratings />,
+    },
+    {
+      path: '/:courseId',
+      element: <CourseDetails />,
+    },
+  ]);
+
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Ratings />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }

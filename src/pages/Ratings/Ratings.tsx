@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getCourses } from 'store';
 import { CourseType } from 'types/CourseType';
 import { Link } from 'react-router-dom';
+import { Level } from 'enums/level';
 import { Filters, Navbar } from './components';
 
 export default function Ratings() {
@@ -58,17 +59,20 @@ export default function Ratings() {
                     <span>{course.organizer}</span>
                   </div>
                   <div className='mt-1'>{course.description}</div>
-                  <Chip
-                    className='mt-3'
-                    variant='outlined'
-                    label={course.category}
-                  />
+                  <div className='flex gap-1 mt-3'>
+                    <Chip variant='outlined' label={course.category} />
+                    <Chip variant='outlined' label={Level[course.level]} />
+                    {course.price === 0 && (
+                      <Chip variant='outlined' label='Bezpłatny' />
+                    )}
+                  </div>
                 </div>
                 <div className='text-lg'>
-                  <div className='flex items-center gap-1'>
+                  <div className='flex items-center justify-end gap-1'>
                     {course.rating} <StarIcon fontSize='small' />
                   </div>
-                  <div>{course.price} PLN</div>
+                  {course.price === 0 && <div>Bezpłatny</div>}
+                  {course.price > 0 && <div>{course.price} PLN</div>}
                 </div>
               </Link>
             ))}

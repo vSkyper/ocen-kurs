@@ -5,6 +5,6 @@ export const courseSchema = z.object({
   description: z.string(),
   name: z.string(),
   organizer: z.string(),
-  price: z.string(),
+  price: z.number(),
   rating: z.number(),
 });

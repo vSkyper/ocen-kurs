@@ -1,3 +1,4 @@
 import Ratings from './SignUp';
+import CourseDetails from './CourseDetails';
 
-export { Ratings };
+export { Ratings, CourseDetails };

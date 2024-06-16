@@ -96,7 +96,7 @@ export default function ReviewCreationForm(params: ReviewCreationType) {
           </div>
 
           <button
-            className='px-2 rounded-lg bg-zinc-600 hover:bg-zinc-700 font-bold'
+            className='px-4 py-2 rounded-lg bg-zinc-600 hover:bg-zinc-700 font-bold'
             type='submit'
           >
             Prześlij

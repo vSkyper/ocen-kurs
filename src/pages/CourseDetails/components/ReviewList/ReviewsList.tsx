@@ -8,7 +8,7 @@ export default function ReviewsList(props: ReviewsListType) {
     revs = [
       {
         revId: '1',
-        author: 'Artur Kowalski0',
+        author: 'Artur Kowalski',
         review: 'Nice course, I learned a lot!',
         rating: 4,
       },

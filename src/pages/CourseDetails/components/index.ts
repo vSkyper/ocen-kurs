@@ -1,4 +1,4 @@
-import ReviewList from './ReviewList';
+import ReviewsList from './ReviewList';
 import CourseDescription from './CourseDescription';
 
-export { ReviewList, CourseDescription };
+export { ReviewsList, CourseDescription };

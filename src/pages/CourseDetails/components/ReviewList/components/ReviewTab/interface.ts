@@ -3,7 +3,7 @@ export interface ReviewTabProps {
 }
 
 export interface ReviewTabElementProps {
-  revId: number;
+  revId: string;
   author: string;
   review: string;
   rating: number;

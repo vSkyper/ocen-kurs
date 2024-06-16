@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { ReviewList, CourseDescription } from './components';
+import { useCallback, useEffect, useState } from 'react';
+import { getCourseDetails } from 'store';
+import { useParams, useLocation } from 'react-router-dom';
+import { CourseDetailsType } from 'types/CourseDetailsType';
+import { ReviewsList, CourseDescription } from './components';
 
 export default function CourseDetails() {
   const { pathname } = useLocation();
@@ -9,10 +11,26 @@ export default function CourseDetails() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const [courseDetails, setCourseDetails] =
+    useState<CourseDetailsType | null>();
+  const { courseId } = useParams<{ courseId: string }>();
+  const downloadCourseDetails = useCallback(async () => {
+    if (!courseId) {
+      setCourseDetails(null);
+      return;
+    }
+    const downloadedCourseDetails = await getCourseDetails(courseId);
+    setCourseDetails(downloadedCourseDetails || null);
+  }, [courseId]);
+
+  useEffect(() => {
+    downloadCourseDetails();
+  }, [downloadCourseDetails]);
+
   return (
     <div className='m-16 mx-auto w-[1048px]'>
       <CourseDescription />
-      <ReviewList />
+      <ReviewsList courseDetails={courseDetails} />
     </div>
   );
 }

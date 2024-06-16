@@ -14,8 +14,12 @@ export default function Ratings() {
   const [categories, setCategories] = useState<string[]>([]);
 
   const downloadCourses = useCallback(async () => {
-    const downloadedCourses = await getCourses();
-    setCourses(downloadedCourses || []);
+    try {
+      const downloadedCourses = await getCourses();
+      setCourses(downloadedCourses || []);
+    } catch (e) {
+      throw e;
+    }
   }, []);
 
   useEffect(() => {

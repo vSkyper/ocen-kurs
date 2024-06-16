@@ -50,7 +50,7 @@ export const addReview = async (
     await updateDoc(courseDetailsRef, {
       reviews: arrayUnion(newReview),
     });
-  } catch (error) {
-    throw error;
+  } catch (e) {
+    throw e;
   }
 };

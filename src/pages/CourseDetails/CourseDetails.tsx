@@ -17,12 +17,14 @@ export default function CourseDetails() {
   const { courseId } = useParams<{ courseId: string }>();
 
   const downloadCourseDetails = useCallback(async () => {
-    if (!courseId) {
-      setCourseDetails(null);
-      return;
+    if (!courseId) return;
+
+    try {
+      const downloadedCourseDetails = await getCourseDetails(courseId);
+      setCourseDetails(downloadedCourseDetails);
+    } catch (e) {
+      throw e;
     }
-    const downloadedCourseDetails = await getCourseDetails(courseId);
-    setCourseDetails(downloadedCourseDetails || null);
   }, [courseId]);
 
   useEffect(() => {

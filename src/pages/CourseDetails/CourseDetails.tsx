@@ -3,6 +3,7 @@ import { getCourseDetails } from 'store';
 import { useParams, useLocation } from 'react-router-dom';
 import { CourseDetailsType } from 'types/CourseDetailsType';
 import { ReviewsList, CourseDescription } from './components';
+import ReviewCreation from './components/ReviewCreation';
 
 export default function CourseDetails() {
   const { pathname } = useLocation();
@@ -30,6 +31,7 @@ export default function CourseDetails() {
   return (
     <div className='m-16 mx-auto w-[1048px]'>
       <CourseDescription />
+      <ReviewCreation />
       <ReviewsList courseDetails={courseDetails} />
     </div>
   );

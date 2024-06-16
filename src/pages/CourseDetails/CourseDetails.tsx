@@ -15,6 +15,7 @@ export default function CourseDetails() {
   const [courseDetails, setCourseDetails] =
     useState<CourseDetailsType | null>();
   const { courseId } = useParams<{ courseId: string }>();
+
   const downloadCourseDetails = useCallback(async () => {
     if (!courseId) {
       setCourseDetails(null);

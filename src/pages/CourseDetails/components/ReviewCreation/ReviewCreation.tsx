@@ -28,27 +28,27 @@ export default function ReviewCreationForm(params: ReviewCreationType) {
 
         if (courseId) {
           addReview(courseId, newReview);
-          setMessage('Review submitted successfully!');
+          setMessage('Zamieszczono recenzję!');
           setAuthor('');
           setReview('');
           setRating(0);
         } else {
-          setMessage('Error submitting review: course ID not found.');
+          setMessage('Nie udało się zamieścić recenzji!');
         }
       } catch (error) {
         setMessage(
-          `Error submitting review: ${(error as Error).message || 'error'}`,
+          `Błąd: ${(error as Error).message || 'Nie udało się zamieścić recenzji!'}`,
         );
       }
     } else {
-      setMessage('Please fill out all fields.');
+      setMessage('Wypełnij wszystkie pola!');
     }
 
     try {
       downloadCourseDetails();
     } catch (error) {
       setMessage(
-        `Error downloading course details: ${(error as Error).message || 'error'}`,
+        `Błąd: ${(error as Error).message || 'Nie udało się pobrać recenzji!'}`,
       );
     }
   };
@@ -103,7 +103,7 @@ export default function ReviewCreationForm(params: ReviewCreationType) {
           </button>
         </div>
       </form>
-      {message && <p className='text-red-500'>{message}</p>}
+      {message && <p className='text-blue-500 font-bold'>{message}</p>}
     </div>
   );
 }

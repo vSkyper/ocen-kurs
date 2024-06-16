@@ -75,29 +75,3 @@ export default function CourseDescription() {
     </div>
   );
 }
-
-// {/*   <div>
-//         <ul className='flex flex-auto gap-16 items-center'>
-//           <li className='text-lg font-semibold'>Strona kursu:</li>
-//           <li>
-//             <a
-//               className='underline text-blue-600 visited:text-purple-600'
-//               href='https://www.w3schools.com'
-//             >
-//               https://www.w3schools.com
-//             </a>
-//           </li>
-//         </ul>
-//       </div> */}
-//       {/* <div>
-//         <ul className='flex flex-auto gap-16 items-center'>
-//           <li className='text-lg font-semibold'>Czas trwania:</li>
-//           <li>nie podano</li>
-//         </ul>
-//       </div> */}
-//       {/* <div>
-//         <ul className='flex flex-auto gap-32 items-center'>
-//           <li className='text-lg font-semibold'>Cena:</li>
-//           <li>darmowy</li>
-//         </ul>
-//       </div> */}

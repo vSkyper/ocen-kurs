@@ -4,6 +4,7 @@ import { ReviewTabProps } from './interface';
 
 export default function ReviewTab(props: ReviewTabProps) {
   const { rev } = props;
+
   return (
     <div className='flex-col'>
       <div

@@ -31,7 +31,7 @@ export default function CourseDetails() {
   return (
     <div className='m-16 mx-auto w-[1048px]'>
       <CourseDescription />
-      <ReviewCreation />
+      <ReviewCreation downloadCourseDetails={downloadCourseDetails} />
       <ReviewsList courseDetails={courseDetails} />
     </div>
   );

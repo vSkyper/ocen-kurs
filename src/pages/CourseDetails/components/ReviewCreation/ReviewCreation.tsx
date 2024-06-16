@@ -4,9 +4,11 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { addReview } from 'store';
+import ReviewCreationType from './interface';
 
-export default function ReviewForm() {
+export default function ReviewCreationForm(params: ReviewCreationType) {
   const { courseId } = useParams<{ courseId: string }>();
+  const { downloadCourseDetails } = params;
   const [author, setAuthor] = useState('');
   const [review, setReview] = useState('');
   const [rating, setRating] = useState(0);
@@ -29,7 +31,7 @@ export default function ReviewForm() {
           setMessage('Review submitted successfully!');
           setAuthor('');
           setReview('');
-          setRating(1);
+          setRating(0);
         } else {
           setMessage('Error submitting review: course ID not found.');
         }
@@ -40,6 +42,14 @@ export default function ReviewForm() {
       }
     } else {
       setMessage('Please fill out all fields.');
+    }
+
+    try {
+      downloadCourseDetails();
+    } catch (error) {
+      setMessage(
+        `Error downloading course details: ${(error as Error).message || 'error'}`,
+      );
     }
   };
 
